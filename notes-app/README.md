@@ -1,3 +1,5 @@
+> **New here?** See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full setup (app + database), available scripts, and an architecture overview with diagrams.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
