@@ -9,15 +9,16 @@ import type {
   Todo,
   UpdateTodoInput,
 } from "@/lib/types";
-import * as api from "@/lib/mock-api";
+import * as api from "@/lib/todos";
 
 export type LoadStatus = "loading" | "ready" | "error";
 
 /**
  * Owns to-do + category state and every mutation. All mutations are OPTIMISTIC:
- * the UI updates instantly, then reconciles with the (mock) API and rolls back
+ * the UI updates instantly, then reconciles with the API and rolls back
  * with a toast on failure — the persistence-feedback model chosen in DESIGN.md.
- * Swapping `@/lib/mock-api` for real Server Actions requires no change here.
+ * Data layer is `@/lib/todos` (Prisma-backed Server Actions); the optimistic
+ * contract here is unchanged from the former mock.
  */
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -50,7 +51,7 @@ export function useTodos() {
     // Initial client-side fetch on mount. `load` only sets state after an
     // awaited request, so there's no synchronous cascading render — but the
     // lint heuristic can't see past the await. This effect disappears once
-    // reads move to RSC with the real backend (see mock-api.ts).
+    // reads move to RSC with the real backend (see lib/todos.ts).
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void load();
   }, [load]);
