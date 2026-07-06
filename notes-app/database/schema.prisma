@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// High-level topic a note belongs to. Fixed set — extend as needed.
+enum Category {
+  PERSONAL
+  WORK
+  FAMILY
+  IDEAS
+  TODO
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @default("")
+  category  Category @default(PERSONAL) // topic
+  label     String? // free-form single label
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([createdAt])
+}
