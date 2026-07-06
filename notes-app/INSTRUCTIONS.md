@@ -2,7 +2,7 @@
 
 ## What is this?
 
-A TODO app—built on a solid backend foundation. A to-do is a required **label** (its text), optionally organized by a **Category**, with **create, read, update, delete, and mark-complete** operations. The backend and database layer are complete and verified; the interactive UI is coming next (see "Current Status" below).
+A TODO app—built on a solid backend foundation. A to-do is a required **label** (its text), optionally organized by a **Category**, with **create, read, update, delete, and mark-complete** operations. The backend and database layer are complete and verified; the interactive UI is coming next.
 
 ## Tech Stack
 
@@ -194,44 +194,6 @@ User checks a checkbox
 - **Revalidation** via `revalidatePath('/')` tells Next.js to re-render the page on the next request, keeping it in sync.
 - **Filter & search** (planned) will happen via URL params (`?category=Work&q=urgent`) — the RSC reads these `searchParams` and pass them to Prisma's `where` clause.
 
-## Current Status & Roadmap
-
-### ✅ Done (This Branch)
-
-- Data model (Category + Note) designed and migrated to PostgreSQL.
-- Three seed categories (Work, Family, Personal) ready to use.
-- All four Server Actions implemented and validated with Zod (`createNote`, `updateNote`, `toggleNote`, `deleteNote`).
-- `lib/prisma.ts` singleton set up to handle dev hot-reload safely.
-- Backend architecture tested and ready.
-
-### 🔨 In Progress (Next Phases)
-
-The interactive TODO UI is being built in phases:
-
-- **Phase 1: Core CRUD** — Create, read, update, delete, and mark-complete via the UI.
-- **Phase 2: Organization & Search** — Filter by category, search by label, and compose filters.
-- **Phase 3: Polish** — Loading states, error boundaries, responsive design.
-
-Currently, `app/page.tsx` is the default Next.js scaffold; it will be replaced with the actual TODO list, add-form, and interactive components as development progresses.
-
-### How to Explore the Backend
-
-To see the database and Server Actions in action right now:
-
-1. **Browse the schema and data:**
-   ```bash
-   npm run db:studio
-   ```
-   This opens Prisma Studio in your browser. You can inspect the seeded categories and manually add test notes to verify the schema.
-
-2. **Review the code:**
-   - `database/schema.prisma` — defines Category and Note.
-   - `app/actions.ts` — the four mutations that will be called from the UI once built.
-   - `database/seed.ts` — how initial data is populated.
-
-3. **Read the full plan:**
-   - `docs/PLAN.md` — detailed architecture decisions, task breakdown, and rationale.
-
 ## Troubleshooting
 
 ### "Connection refused" or "ECONNREFUSED"
@@ -278,21 +240,3 @@ Prisma migrated your database already, but git brought in a new migration. Inspe
 ```bash
 npm run db:migrate         # Prisma will show you what's pending
 ```
-
-## Next Steps
-
-1. **Read the full plan:** See `docs/PLAN.md` for architecture, task list, and decisions.
-2. **Explore with Prisma Studio:** Run `npm run db:studio` to browse the schema and data.
-3. **Run the seed:** `npm run db:seed` to repopulate test categories anytime.
-4. **Start coding the UI:** Once the next branch is ready, the Server Actions are here and ready to be called from React components.
-
-## Questions?
-
-If something doesn't work:
-- Check the troubleshooting section above.
-- Verify all prerequisites are installed (`node`, `npm`, `docker`).
-- Ensure `docker compose up -d` shows the Postgres container running.
-- Check the `AGENTS.md` note about Next.js 16 API differences.
-- Review `docs/PLAN.md` for context on architecture and decisions.
-
-Happy building!
